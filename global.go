@@ -1,6 +1,9 @@
 package xlog
 
-import "go.uber.org/zap"
+import (
+	"fmt"
+	"go.uber.org/zap"
+)
 
 var (
 	slogger *zap.SugaredLogger
@@ -49,8 +52,10 @@ func Errorln(args ...interface{}) {
 }
 
 func init() {
-	l := New(Config{})
-	if l != nil {
-		SetGlobal(l)
+	l, err := New(Config{})
+	if err != nil {
+		fmt.Printf("%s\n", err)
+		return
 	}
+	SetGlobal(l)
 }

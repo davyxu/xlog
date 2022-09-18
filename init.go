@@ -1,7 +1,7 @@
 package xlog
 
 import (
-	"fmt"
+	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -15,7 +15,7 @@ type Config struct {
 	Level      string // debug, info, warn, error
 }
 
-func New(cfg Config) *zap.Logger {
+func New(cfg Config) (*zap.Logger, error) {
 	var zConfig zap.Config
 
 	zConfig.EncoderConfig = zapcore.EncoderConfig{
@@ -44,8 +44,7 @@ func New(cfg Config) *zap.Logger {
 
 	err := level.Set(cfg.Level)
 	if err != nil {
-		fmt.Println("invalid zap log level: ", cfg.Level)
-		return nil
+		return nil, errors.Wrapf(err, "invalid zap log level: %d", cfg.Level)
 	}
 
 	zConfig.Level = zap.NewAtomicLevelAt(level)
@@ -72,9 +71,8 @@ func New(cfg Config) *zap.Logger {
 
 	logger, err := zConfig.Build(option...)
 	if err != nil {
-		fmt.Println(err)
-		return nil
+		return nil, err
 	}
 
-	return logger
+	return logger, nil
 }
