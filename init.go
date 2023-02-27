@@ -69,10 +69,10 @@ func New(cfg Config) (*zap.Logger, error) {
 		zap.AddCallerSkip(1), zap.AddStacktrace(zap.FatalLevel),
 	}
 
-	logger, err := zConfig.Build(option...)
+	l, err := zConfig.Build(option...)
 	if err != nil {
 		return nil, err
 	}
 
-	return logger, nil
+	return l, nil
 }

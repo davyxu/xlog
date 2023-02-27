@@ -4,7 +4,7 @@ import "testing"
 
 func TestDebugLogger(t *testing.T) {
 
-	l := New(Config{
+	l, _ := New(Config{
 		Color: true,
 	})
 	SetGlobal(l)
@@ -16,7 +16,7 @@ func TestDebugLogger(t *testing.T) {
 
 func TestFileLogger(t *testing.T) {
 
-	l := New(Config{
+	l, _ := New(Config{
 		LogFile: "log.log",
 	})
 	SetGlobal(l)
@@ -27,7 +27,7 @@ func TestFileLogger(t *testing.T) {
 
 func TestJsonLogger(t *testing.T) {
 
-	l := New(Config{
+	l, _ := New(Config{
 		JsonLog: true,
 	})
 	SetGlobal(l)
