@@ -44,7 +44,7 @@ func New(cfg Config) (*zap.Logger, error) {
 
 	err := level.Set(cfg.Level)
 	if err != nil {
-		return nil, errors.Wrapf(err, "invalid zap log level: %d", cfg.Level)
+		return nil, errors.Wrapf(err, "invalid zap log level: %s", cfg.Level)
 	}
 
 	zConfig.Level = zap.NewAtomicLevelAt(level)
